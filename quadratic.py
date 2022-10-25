@@ -1,4 +1,3 @@
-import numpy as np
 import math
 
 t1 = int(input("Input the first term: "))
@@ -15,24 +14,42 @@ nsquared = [1, 4, 9]
 sequence = [t1, t2, t3]
 
 result = [nsquared *  coefficient_a for nsquared in nsquared]
-array1 = np.array(result)
-array2 = np.array(sequence)
-subtracted_array = np.subtract(array2, array1)
-subtracted = list(subtracted_array)
+
+subtracted = list()
+for item1, item2 in zip(sequence, result):
+    item = item1 - item2
+    subtracted.append(item)
 
 coefficient_b = subtracted[2] - subtracted[1]
 
 coefficient_c = subtracted[0] - coefficient_b
 
+if coefficient_a == float:
+    result = result
+elif coefficient_a == 1:
+    result = "n^2 "
+elif coefficient_a == 0:
+    result = " "
+
+if coefficient_b > 0:
+    result = str(result) + " + " + str(coefficient_b) + "n"
+elif coefficient_b == 0:
+    result = str(result)
+elif coefficient_b < 0:
+    result = str(result) + " - " + str(coefficient_b)[1:] + "n"
+
 if coefficient_c > 0:
-    print(str(coefficient_a) + "x^2 " + str(coefficient_b) + "x + " + str(coefficient_c))
+    result = str(result) + " + " + str(coefficient_c)
+elif coefficient_c == 0:
+    result = str(result)
 elif coefficient_c < 0:
-    print(str(coefficient_a) + "x^2 " + str(coefficient_b) + "x " + str(coefficient_c))
+    result = str(result) + " - " + str(coefficient_c)[1:]
 
-finder = input("Do you want to find a term in the sequence? Type 'Y' for yes or 'N' for no: ")
+print(result)
 
-while finder != "N":
-    term = int(input("Which term do you want to find: "))
-    y = (coefficient_a * (term**2)) + (coefficient_b * term) + (coefficient_c)
+term = int(input("Input a term of the sequence you would like to find, type any non-integer value to end the program: "))
+
+while term != int:
+    y = (coefficient_a * (int(term)**2)) + (coefficient_b * int(term)) + (coefficient_c)
     print(y)
-    finder = input("Do you want to find another term in the sequence? Type 'Y' for yes or 'N' for no: ")
+    term = input("Input a term of the sequence you would like to find, type any non-integer value to end the program: ")
